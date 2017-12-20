@@ -15,6 +15,13 @@ the command that will do all of the initial setup of a repository.
 Pass the url to an existing git repository by putting the url after `git clone`  
 like this: `git clone https://github.com/udacity/course-git-blog-project`  
 
+optionally, you can pass a new repository name after the url to clone an  
+existing repository to a new name. Like this:  
+`git clone https://github.com/udacity/course-git-blog-project new-repo-name`  
+
+Don't forget to `cd` into the newly cloned directory before attempting any  
+other git commands on it.  
+
 If you want to start version-controlling existing files (as opposed to an  
 empty directory), you should probably begin tracking those files and do an  
 initial commit. You can accomplish that with a few git add commands that  
@@ -26,3 +33,5 @@ specify the files you want to track, followed by a git commit:
 
 We’ll go over what these commands do in just a minute. At this point, you have  
 a Git repository with tracked files and an initial commit.  
+
+`git status` // displays information such as which files are in which states.  
