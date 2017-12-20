@@ -16,7 +16,7 @@ Run each of the following lines on the command line to make sure everything is s
   
 `git config --list`  
   
-# Git & Code Editor  
+## Git & Code Editor  
 The last step of configuration is to get Git working with your code editor.
 Below are three of the most popular code editors. If you use a different editor,
 then do a quick search on Google for "associate X text editor with Git" 
