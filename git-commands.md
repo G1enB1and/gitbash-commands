@@ -41,5 +41,20 @@ a Git repository with tracked files and an initial commit.
 `git status` // displays information such as which files are in which states.  
 
 `git log` // displays information about existing commits.  
+Output uses `less` bash command to display one page at a time.
+a colon `:` at the bottom left means there is more to display. You can navigate  
+with `space` or arrows. Search with `/` or end with `q`.  
+
+By default, this command displays:  
+- the SHA
+- the author
+- the date
+- and the message  
+...of every commit in the repository. I stress the "By default" part of what  
+Git displays because the git log command can display a lot more information  
+than just this.  
+
+`git log --oneline` will display just the first 7 digits of the SHA and the commits message on one line.  
+  
 `git show` // displays information about the given commit by appending  
 it's sha hash.  
