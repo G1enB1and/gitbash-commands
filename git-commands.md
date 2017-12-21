@@ -40,8 +40,17 @@ a Git repository with tracked files and an initial commit.
 # Other git commands:  
 `git status` displays information such as which files are in which states.  
 
-## git log  
+## git add  
+`git add`  
 
+## git commit  
+`git commit`  
+
+## git diff  
+`git diff`  
+
+## git log  
+  
 `git log` displays information about existing commits.  
 Output uses `less` bash command to display one page at a time.
 a colon `:` at the bottom left means there is more to display. You can navigate  
