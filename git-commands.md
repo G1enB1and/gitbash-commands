@@ -37,9 +37,11 @@ specify the files you want to track, followed by a git commit:
 We’ll go over what these commands do in just a minute. At this point, you have  
 a Git repository with tracked files and an initial commit.  
 
-## Other git commands:  
+# Other git commands:  
 `git status` displays information such as which files are in which states.  
 
+## git log  
+  
 `git log` displays information about existing commits.  
 Output uses `less` bash command to display one page at a time.
 a colon `:` at the bottom left means there is more to display. You can navigate  
@@ -58,14 +60,21 @@ than just this.
 
 `git log --stat` displays the files that have been changed in a commit and the number of lines that have been added or deleted.  
 
-`git log -p` is a short form of --patch.  
+## git log --patch  
+
+`git log -p` is a short form of `--patch`.  
 It can be used to display the actual changes made to a file.  
 
 the first line `diff --git a/file b/file` shows what file was changed. `a` is the original and `b` is the new. the `a` and `b` are not part of the path or name, they just indicate old and new. This is how you can tell if a file was renamed if `b/newname` is different from `a/oldname`.  
-  
+
 in the line `@@ -38,6 +38,11 @@`  
 the `-` indicates the original file and `+` indicates the new changed file.  
 `-38,6` indicates line number 38 and the following 6 lines of the original file. `+38,11` line 38 and the following 11 lines of the new changed file. 11, from 6 means that 5 lines were added in this area.  
+
+### options for git log --patch:
+`-w` ignores whitespace when comparing files.  
+
+## git show  
 
 `git show` // displays information about the given commit by appending  
 it's sha hash.  
