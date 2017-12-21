@@ -40,4 +40,6 @@ a Git repository with tracked files and an initial commit.
 ## Other git commands:  
 `git status` // displays information such as which files are in which states.  
 
-`git log` // 
+`git log` // displays information about existing commits.  
+`git show` // displays information about the given commit by appending  
+it's sha hash.  
