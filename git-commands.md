@@ -41,8 +41,11 @@ a Git repository with tracked files and an initial commit.
 `git status` displays information such as which files are in which states.  
 
 ## git add  
-`git add`  
-
+`git add`  moves a file or files to the staging area. files in the staging area are monitored for changes, but not yet commited. `git add` can also be refered to as staging.  
+  
+## git rm --cached  
+`git rm --cached` removes a file or files from the staging area. This does not remove the files from the working directory or the repository, just the staging area.  
+  
 ## git commit  
 `git commit`  
 
