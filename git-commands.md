@@ -41,7 +41,7 @@ a Git repository with tracked files and an initial commit.
 `git status` displays information such as which files are in which states.  
 
 ## git log  
-  
+
 `git log` displays information about existing commits.  
 Output uses `less` bash command to display one page at a time.
 a colon `:` at the bottom left means there is more to display. You can navigate  
@@ -55,6 +55,8 @@ By default, this command displays:
 ...of every commit in the repository. I stress the "By default" part of what  
 Git displays because the git log command can display a lot more information  
 than just this.  
+
+You can specify a SHA (or just the first 7 digits of it) as the final argument to `git log` with any of the other options below to see only that one commits info. Like this: `git log -p fdf5493`  
 
 `git log --oneline` will display just the first 7 digits of the SHA and the commits message on one line.  
 
@@ -76,5 +78,17 @@ the `-` indicates the original file and `+` indicates the new changed file.
 
 ## git show  
 
-`git show` // displays information about the given commit by appending  
-it's sha hash.  
+`git show` displays information about the given commit by appending
+it's SHA like this: `git show fdf5493`.
+
+By default it shows:
+- the commit
+- the author
+- the date
+- the commit message
+- the patch information  
+
+However, `git show` can be combined with most of the same flags as for `git log`:  
+- `--stat` to show the how many files were changed and the number of lines that were added/removed.
+- `-p` or `--patch` this the default, but if `--stat` is used, the patch won't display, so pass `-p` to add it again.
+- `-w` to ignore changes to whitespace.
