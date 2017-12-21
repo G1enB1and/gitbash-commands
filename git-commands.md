@@ -56,5 +56,7 @@ than just this.
 
 `git log --oneline` will display just the first 7 digits of the SHA and the commits message on one line.  
   
+`git log --stat` displays the files that have been changed in a commit and the number of lines that have been added or deleted.  
+
 `git show` // displays information about the given commit by appending  
 it's sha hash.  
