@@ -43,18 +43,25 @@ a Git repository with tracked files and an initial commit.
 ## git add  
 `git add`  moves a file or files to the staging area. files in the staging area are monitored for changes, but not yet commited. `git add` can also be refered to as staging.  
 `git add file1 file2 file3` or `git add .` the `.` means ALL files in the git init working directory.  
-  
+
 ## git rm --cached  
 `git rm --cached` removes a file or files from the staging area. This does not remove the files from the working directory or the repository, just the staging area.  
-  
-## git commit  
-`git commit`  
 
+## git commit  
+`git commit` requires a message to commit changes to the repository online.  
+It will attempt to open your code editor first. If it cannot, then it will display  
+`Aborting commit due to empty commit message.`  
+If bash can open a code editor it will show a file named COMMIT_EDITMSG with information about what files will be committed and a comment instructing you to add a message to the file.  
+Type a message on line 1, save the file, then close the editor (not just the tab). Then the bash terminal will update to show your commit message and files changed.  
+
+you can bypass the editor and add the commit message in bash with:  
+`git commit -m "message goes here"`  
+  
 ## git diff  
 `git diff`  
 
 ## git log  
-  
+
 `git log` displays information about existing commits.  
 Output uses `less` bash command to display one page at a time.
 a colon `:` at the bottom left means there is more to display. You can navigate  
