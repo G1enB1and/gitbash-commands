@@ -93,6 +93,30 @@ in the line `@@ -38,6 +38,11 @@`
 the `-` indicates the original file and `+` indicates the new changed file.  
 `-38,6` indicates line number 38 and the following 6 lines of the original file. `+38,11` line 38 and the following 11 lines of the new changed file. 11, from 6 means that 5 lines were added in this area.  
 
+## git log --decorate  
+This flag has been enabled by default since git v2.13, so you no longer have to type it.
+It shows tags to the right of commit SHAs.
+
+## git tag  
+`git tag` will display all tags that are in the repository.  
+
+`git tag -a v1.0` This will open your code editor and wait for you supply a message for the tag. How about the message "Ready for content"?  
+
+CAREFUL: In the command above (`git tag -a v1.0`) the `-a` flag is used. This flag tells Git to create an annotated flag. If you don't provide the flag (i.e. `git tag v1.0`) then it'll create what's called a lightweight tag.  
+
+Annotated tags are recommended because they include a lot of extra information such as:  
+
+- the person who made the tag  
+- the date the tag was made  
+- a message for the tag  
+
+Because of this, you should always use annotated tags.  
+
+tags should be visible in logs by default since git v2.13, but if you don't see them, just type `git log --decorate`.  
+
+### deleting a tag  
+`git tag -d v1.0` will delete the tag `v1.0`.
+
 ### options for git log --patch:
 `-w` ignores whitespace when comparing files.  
 
