@@ -56,9 +56,9 @@ Type a message on line 1, save the file, then close the editor (not just the tab
 
 you can bypass the editor and add the commit message in bash with:  
 `git commit -m "message goes here"`  
-  
+
 ## git diff  
-`git diff`  
+The `git diff` command can be used to see changes that have been made but haven't been committed, yet.  The Output looks like `git log -p` because `git log -p` uses `git diff` under the hood. If there have not been any changes since last commit, nothing will happen.
 
 ## git log  
 
