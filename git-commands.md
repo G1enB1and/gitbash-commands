@@ -97,6 +97,12 @@ the `-` indicates the original file and `+` indicates the new changed file.
 This flag has been enabled by default since git v2.13, so you no longer have to type it.
 It shows tags to the right of commit SHAs.
 
+## git log --graph  
+adding `graph` to `git log` will add bullets and lines to the leftmost part of the output to indicate branching.
+
+## git log --all  
+adding `--all` to `git log` will show all branches in the repository.  
+
 ## git tag  
 `git tag` will display all tags that are in the repository.  
 
@@ -118,7 +124,7 @@ tags should be visible in logs by default since git v2.13, but if you don't see 
 By default, tags are applied to the most recent commit.  
 If you want to specify a different commit, just append it's SHA number after the tag.
 like this: `git tag -a v1.0 a87984`  
-  
+
 ### deleting a tag  
 `git tag -d v1.0` will delete the tag `v1.0`.  
 `-d` is short for `--delete`  

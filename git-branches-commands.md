@@ -34,3 +34,7 @@ The funny thing, though, is that both `sidebar` and `master` are pointing at the
 
 `git log` will show `HEAD->sidebar, master`  
 `HEAD` is the current working branch, and it is pointing `->` `sidebar` as the current branch, then showing `master` as another branch in the repository.  
+
+## create and switch to a branch in one line:
+`git checkout -b new-branch-name` will create a branch called `new-branch-name` and switch to it.  
+You can also append a SHA or branch name to that to start there.  
