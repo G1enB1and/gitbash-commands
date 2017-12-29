@@ -57,6 +57,75 @@ Type a message on line 1, save the file, then close the editor (not just the tab
 you can bypass the editor and add the commit message in bash with:  
 `git commit -m "message goes here"`  
 
+## changing the last commit  
+`git commit --amend`  
+If your Working Directory is clean (meaning there aren't any uncommitted changes in the repository), then running `git commit --amend` will let you provide a new commit message for the last commit made.  
+Your code editor will open up and display the original commit message. Just fix a misspelling or completely reword it! Then save it and close the editor to lock in the new commit message.  
+
+## Add forgotten files to a commit  
+Alternatively, `git commit --amend` will let you include files (or changes to files) you might've forgotten to include. Let's say you've updated the color of all navigation links across your entire website. You committed that change and thought you were done. But then you discovered that a special nav link buried deep on a page doesn't have the new color. You could just make a new commit that updates the color for that one link, but that would have two back-to-back commits that do practically the exact same thing (change link colors).  
+
+Instead, you can amend the last commit (the one that updated the color of all of the other links) to include this forgotten one. To do get the forgotten link included, just:  
+
+- edit the file(s)  
+- save the file(s)  
+- stage the file(s)  
+- and run `git commit --amend`  
+
+So you'd make changes to the necessary CSS and/or HTML files to get the forgotten link styled correctly, then you'd save all of the files that were modified, then you'd use git add to stage all of the modified files (just as if you were going to make a new commit!), but then you'd run `git commit --amend` to update the most-recent commit instead of creating a new one.  
+
+## What is a Revert?  
+When you tell Git to revert a specific commit, Git takes the changes that were made in commit and does the exact opposite of them. Let's break that down a bit. If a character is added in commit A, if Git reverts commit A, then Git will make a new commit where that character is deleted. It also works the other way where if a character/line is removed, then reverting that commit will add that content back!  
+
+## the `git revert` command  
+`git revert <SHA-of-commit-to-revert>` will make a new commit that undoes everything that was done in the commit referenced by SHA.  
+(this will pop open your code editor to edit/accept the provided commit message unless you add `-m "commit message here"`)
+
+## Reset vs Revert  
+Reverting creates a new commit that reverts or undoes a previous commit. Resetting, on the other hand, erases commits!  
+
+## Resetting is Dangerous!
+You've got to be careful with Git's resetting capabilities. This is one of the few commands that lets you erase commits from the repository. If a commit is no longer in the repository, then its content is gone.  
+
+To alleviate the stress a bit, Git does keep track of everything for about 30 days before it completely erases anything. To access this content, you'll need to use the `git reflog` command.  
+
+## git reset command (dangerous)
+`git reset <reference-to-commit>`  can be used to:  
+- move the HEAD and current branch pointer to the referenced commit  
+- erase commits  
+- move committed changes to the staging index  
+- unstage committed changes  
+
+## git reset flags  
+The way that Git determines if it erases, stages previously committed changes, or unstages previously committed changes is by the flag that's used. The flags are:  
+
+- `--mixed` (default)  working directory gets or keeps changes removed from repository  
+- `--soft`  staging index gets or keeps changes removed from repository  
+- `--hard`  trash gets or keeps changes removed from repository  
+
+`git reset --hard HEAD^` will take the changes made in the commit currently checkout out and pointed to by HEAD and erase them.  
+  
+## Relative Commit References  
+You already know that you can reference commits by their SHA, by tags, branches, and the special `HEAD` pointer. Sometimes that's not enough, though. There will be times when you'll want to reference a commit relative to another commit. For example, there will be times where you'll want to tell Git about the commit that's one before the current commit...or two before the current commit. There are special characters called "Ancestry References" that we can use to tell Git about these relative references. Those characters are:  
+
+- `^` indicates the parent commit  
+- `~` indicates the first parent commit  
+
+Here's how we can refer to previous commits:  
+
+- the parent commit: the following indicate the parent commit of the current commit:  
+    - `HEAD^`  
+    - `HEAD~`  
+    - `HEAD~1`  
+- the grandparent commit: the following indicate the grandparent commit of the current commit:  
+    - `HEAD^^`  
+    - `HEAD~2`  
+- the great-grandparent commit: the following indicate the great-grandparent commit of the current commit:  
+    - `HEAD^^^`  
+    - `HEAD~3`  
+
+The main difference between the `^` and the `~` is when a commit is created from a merge. A merge commit has two parents. With a merge commit, the `^` reference is used to indicate the first parent of the commit while `^2` indicates the second parent. The first parent is the branch you were on when you ran `git merge` while the second parent is the branch that was merged in.  
+
 ## git diff  
 The `git diff` command can be used to see changes that have been made but haven't been committed, yet.  The Output looks like `git log -p` because `git log -p` uses `git diff` under the hood. If there have not been any changes since last commit, nothing will happen.
 
