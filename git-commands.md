@@ -104,7 +104,7 @@ The way that Git determines if it erases, stages previously committed changes, o
 - `--hard`  trash gets or keeps changes removed from repository  
 
 `git reset --hard HEAD^` will take the changes made in the commit currently checkout out and pointed to by HEAD and erase them.  
-  
+
 ## Relative Commit References  
 You already know that you can reference commits by their SHA, by tags, branches, and the special `HEAD` pointer. Sometimes that's not enough, though. There will be times when you'll want to reference a commit relative to another commit. For example, there will be times where you'll want to tell Git about the commit that's one before the current commit...or two before the current commit. There are special characters called "Ancestry References" that we can use to tell Git about these relative references. Those characters are:  
 
@@ -217,3 +217,20 @@ However, `git show` can be combined with most of the same flags as for `git log`
 - `--stat` to show the how many files were changed and the number of lines that were added/removed.
 - `-p` or `--patch` this the default, but if `--stat` is used, the patch won't display, so pass `-p` to add it again.
 - `-w` to ignore changes to whitespace.
+
+# Remote Repositories  
+Up until now everything (even commits) have been local. Following are some commands and information to work with remote repositories like GitHub. Branches can be merged and pushed to the remote at once, or pushed up to the remote as separate branches. You're also not limited to just one remote. You can add as many remote repositories as you want!  
+
+Why would you want to have multiple remote repositories? We'll look at this later but briefly, if you are working with multiple developers then you might want to get changes they're working on in their branch(es) into your project before they merge them into the master branch. You might want to do this if you want to test out their change before you decide to implement your changes.  
+
+Another example is if you have a project whose code is hosted on Github but deploys via Git to Heroku. You would have one remote for the `master` and one for the `deployment`.  
+
+`git remote` command will let you manage and interact with remote repositories.  
+If you haven't configured a remote repository then this command will display nothing. One caveat to this is if you have cloned a repository. If you have, then your repository will automatically have a remote because it was cloned from the repository at the URL you provided.  
+
+Running `git remote` on a repo that has been cloned from GitHub will output the word `origin`  
+The word `origin`, here, is referred to as a "shortname". A shortname is just a variable or a short and easy way to refer to the location (path or url) of the remote repository. A shortname is local to the current repository (as in, your local repository). The word "origin" is the defacto name that's used to refer to the main remote repository. It's possible to rename this to something else, but typically it's left as "origin". It's a lot easier to use just a name like `origin` rather than the entire path to the remote repository.  
+
+If you want to see the full path to the remote repository, then all you have to do is use the `-v` flag: So, `git remote -v` would output something similar to:  
+`origin https://github.com/UserName/project-name.git (fetch)`  
+`origin https://github.com/UserName/project-name.git (push)`  
