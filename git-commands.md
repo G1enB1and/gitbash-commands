@@ -216,7 +216,7 @@ By default it shows:
 However, `git show` can be combined with most of the same flags as for `git log`:  
 - `--stat` to show the how many files were changed and the number of lines that were added/removed.
 - `-p` or `--patch` this the default, but if `--stat` is used, the patch won't display, so pass `-p` to add it again.
-- `-w` to ignore changes to whitespace.
+- `-w` to ignore changes to whitespace.  
 
 # Remote Repositories  
 Up until now everything (even commits) have been local. Following are some commands and information to work with remote repositories like GitHub. Branches can be merged and pushed to the remote at once, or pushed up to the remote as separate branches. You're also not limited to just one remote. You can add as many remote repositories as you want!  
@@ -234,3 +234,64 @@ The word `origin`, here, is referred to as a "shortname". A shortname is just a 
 If you want to see the full path to the remote repository, then all you have to do is use the `-v` flag: So, `git remote -v` would output something similar to:  
 `origin https://github.com/UserName/project-name.git (fetch)`  
 `origin https://github.com/UserName/project-name.git (push)`  
+
+## Sending commits to a remote with `git push`  
+Before pushing commits to a remote, you have to assign the remote location to a shortname such as `origin` with the `remote` command as described above.  
+`git push <remote-shortname> <branch>` the defacto shortname to use is `origin` and the defacto branch is `master`.
+`git push origin master` will push all commits in `master` to the remote previously assigned to `origin`.  
+
+## `git pull` vs `git fetch`
+`git pull` works the same as `git push` in reverse. The important thing to note is that it is merging the changes automatically after downloading them. This will not work if there have been changes  on the remote further along than local repo. So, for this case and/or just to download the commits without merging them automatically, the command to use is `git fetch`  
+`git fetch origin master` will download the new commits from the remote master branch, but will not automatically merge them locally. So you will often want to run a merge command after a fetch command, and then a push command to make the remote and local repos the same.  
+
+## view log info grouped by author
+`git shortlog` will display the commit messages and number of commits grouped alphabetically by author.  
+adding `-s` will show just the number of commits next to each author name without the commit messages.  
+adding `-n` will sort them numerically rather than alphabetically by author.  
+`git log --author="author name"` will show all commits made by that author.  
+
+## filter through logs with grep  
+`git log --grep="bug"` will show only commits that contain the word `bug`.  
+Search is case sensitive so "CSS bug" will not find "css bug".  
+
+## cloning a repository
+`git clone "URL"` will make a local copy of the repository linked to. This also creates a connection to the remote using the default shortname `origin`. Keep in mind, then you must be the owner of the repo than you clone in order to push changes to it, but it will let you clone other peoples repos and just not let you push changes. Ideally, you should first fork the repo on github (there is no terminal command to fork) and then clone your own forked copy.  
+you can also add a second shortname to the remote of the original repo you forked from.
+This shortname is typically called `upstream` instead of `origin` (remember that `origin` points to your own forked copy, while `upstream` should point to the original repo you forked from). You can set this with `git remote add upstream "URL"`  
+The purpose of having this second remote is to fetch `git fetch upstream master`, switch to it `git checkout master` and merge in changes from the original repo  `git merge upstream/master` to stay in sync with it as you work. This only updates the local copy, so you would also need to `git push origin master` to sync your forked copy on github.   
+
+## The Rebase Command  
+The rebase command can be used to do many powerful things, but can be very dangerous.
+In this example we are going to `squash` the last 3 commits into a single commit with a new commit message.  
+
+The `git rebase` command will move commits to have a new base. In the command `git rebase -i HEAD~3`, we're telling Git to use `HEAD~3` as the base where all of the other commits (`HEAD~2`, `HEAD~`1, and `HEAD`) will connect to.  
+
+The `-i` in the command stands for "interactive". You can perform a rebase in a non-interactive mode. While you're learning how to rebase, though, I definitely recommend that you do interactive rebasing.  
+
+It can be a good idea to make a branch called backup or something similar before performing a rebase.  
+
+`git rebase -i HEAD~3` will open your code editor just as it does when expecting a message as with commits. Here it will show the last three commits in reverse order, so the newest will be at the bottom. The default action will be `pick` which as described below in the code editor means it will commit each one. That's not what we want to do. Change `pick` to `s` or `squash` for the bottom and middle commits. It won't work if the top commit is set to `squash` because there is nothing to squash it with. You could leave the top one as `pick`, but we want to change the commit message. So we will set the top commit to `r`. Save and close the code editor to continue the change. This will open a new code editor allowing us to reword the commit message. Do so, then save and close the editor. This will open one last code editor to set the final commit message. Type the commit message, save and close to continue. This will return to the terminal and make the changes. That is it will combine the last three commits into one new commit with a new message.
+
+Instead of using `HEAD~3` to tell it where to base the new commit from, you could also refer to a SHA, branch, or tag.  
+
+## force pushing  
+After doing a rebase, the next push will probably fail because github try's to prevent you from accidentally deleting commits. This is a perfect time to use a force push with `git push -f`.
+
+## Other `git rebase` Commands:  
+- use `p` or `pick` to keep the commit as is  
+- use `r` or `reword` to keep the commit's content but alter the commit message  
+- use `e` or `edit` to keep the commit's content but stop before committing so that you can:  
+    - add new content or files  
+    - remove content or files  
+    - alter the content that was going to be committed  
+- use `s` or `squash` to combine this commit's changes into the previous commit (the commit above it in the list)  
+- use `f` or `fixup` to combine this commit's change into the previous one but drop the commit message  
+- use `x` or `exec` to run a shell command  
+- use `d` or `drop` to delete the commit  
+
+## When to rebase  
+As you've seen, the `git rebase` command is incredibly powerful. It can help you edit commit messages, reorder commits, combine commits, etc. So it truly is a powerhouse of a tool. Now the question becomes "When should you rebase?".  
+
+Whenever you rebase commits, Git will create a new SHA for each commit! This has drastic implications. To Git, the SHA is the identifier for a commit, so a different identifier means it's a different commit, regardless if the content has changed at all.  
+
+So *you should not rebase if you have already pushed the commits you want to rebase.* If you're collaborating with other developers, then they might already be working with the commits you've pushed. If you then use `git rebase` to change things around and then force push the commits, then the other developers will now be out of sync with the remote repository. They will have to do some complicated surgery to their Git repository to get their repo back in a working state...and it might not even be possible for them to do that; they might just have to scrap all of their work and start over with your newly-rebased, force-pushed commits.  
