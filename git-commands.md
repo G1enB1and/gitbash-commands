@@ -48,8 +48,8 @@ a Git repository with tracked files and an initial commit.
 `git rm --cached` removes a file or files from the staging area. This does not remove the files from the working directory or the repository, just the staging area.  
   
 ## git commit  
-`git commit`  
-
+`git commit` opens the code editor associated with bash, shows you what branch your on and the files being commited and prompts you to add a message to the commit.  
+  
 ## git diff  
 `git diff`  
 
